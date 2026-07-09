@@ -244,14 +244,13 @@ jobs:
           cp susfs4ksu/kernel_patches/include/linux/* include/linux/
           
       - name: Fix cgroup patch
-              run: |
-                cd $GITHUB_WORKSPACE/device_kernel
-            
-                if [ -f kernel/cgroup/cgroup.c.rej ]; then
-                    echo "Found cgroup reject"
-                    cat kernel/cgroup/cgroup.c.rej
-                    exit 1
-                fi
+        run: |
+          cd $GITHUB_WORKSPACE/device_kernel
+          if [ -f kernel/cgroup/cgroup.c.rej ]; then
+              echo "Found cgroup reject"
+              cat kernel/cgroup/cgroup.c.rej
+              exit 1
+          fi
                 
       - name: Patch Kernel for no-kprobe
         run: |
