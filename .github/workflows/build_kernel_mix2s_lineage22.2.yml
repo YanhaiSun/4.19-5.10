@@ -191,7 +191,7 @@ jobs:
           # Variable
           SUSFS_SOURCE=https://gitlab.com/simonpunk/susfs4ksu.git
           SUSFS_BRANCH=kernel-${{ env.KERNEL_VERSION }}
-          KERNEL_PATCHES=https://github.com/JackA1ltman/NonGKI_Kernel_Patches.git
+          KERNEL_PATCHES=https://github.com/Lastpickle/NonGKI_Kernel_Patches.git
 
           # Set MKBOOTIMG and KSU
           cd $GITHUB_WORKSPACE
@@ -204,22 +204,23 @@ jobs:
           echo "UPLOADNAME=-${{ env.KERNELSU_NAME }}_$KSU_VERSION" >> $GITHUB_ENV
           echo "PACK_METHOD=MKBOOTIMG" >> $GITHUB_ENV
 
+         
           # Patch Cgroup V2
-          wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/cgroupv2_fork_to_49.patch
-          patch -p1 < cgroupv2_fork_to_49.patch
-          wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/binder_5_15_to_49.patch
-          patch -p1 < binder_5_15_to_49.patch
+          wget https://raw.githubusercontent.com/Lastpickle/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/cgroupv2_to_49.patch
+          patch -p1 < cgroupv2_to_49.patch
+          wget https://raw.githubusercontent.com/Lastpickle/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/binder_freezer_to_49.patch
+          patch -p1 < binder_freezer_to_49.patch
 
           # Patch set_memory
           cp /tmp/Patches/Patch/set_memory_to_49_and_low.patch ./
           patch -p1 < set_memory_to_49_and_low.patch || true
 
           # Patch LZ4KD
-          wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/lz4k_kd_oplus_to_49.patch
-          patch -p1 < lz4k_kd_oplus_to_49.patch
+          wget https://raw.githubusercontent.com/Lastpickle/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/lz4kd_to_49.patch
+          patch -p1 < lz4kd_to_49.patch
 
           # Patch Simple LMK
-          wget https://raw.githubusercontent.com/JackA1ltman/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/simple_lmk_to_49.patch
+          wget https://raw.githubusercontent.com/Lastpickle/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/simple_lmk_to_49.patch
           patch -p1 < simple_lmk_to_49.patch
 
           # KPM Checker
@@ -238,7 +239,7 @@ jobs:
 
           # Set SUSFS
           git clone $SUSFS_SOURCE -b $SUSFS_BRANCH susfs4ksu --depth=1
-          git clone https://github.com/JackA1ltman/NonGKI_Kernel_Patches.git -b mi_kernel NonGKI_Kernel_Patches --depth=1
+          git clone https://github.com/Lastpickle/NonGKI_Kernel_Patches.git -b mi_kernel NonGKI_Kernel_Patches --depth=1
           cp susfs4ksu/kernel_patches/fs/* fs/
           cp susfs4ksu/kernel_patches/include/linux/* include/linux/
 
