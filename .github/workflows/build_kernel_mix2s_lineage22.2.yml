@@ -209,7 +209,7 @@ jobs:
           wget https://raw.githubusercontent.com/Lastpickle/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/cgroupv2_to_49.patch
           patch -p1 < cgroupv2_to_49.patch
           wget https://raw.githubusercontent.com/Lastpickle/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/binder_freezer_to_49.patch
-          patch -p1 < binder_freezer_to_49.patch
+          patch -p1 < binder_freezer_to_49.patch || true
 
           # Patch set_memory
           cp /tmp/Patches/Patch/set_memory_to_49_and_low.patch ./
@@ -217,11 +217,11 @@ jobs:
 
           # Patch LZ4KD
           wget https://raw.githubusercontent.com/Lastpickle/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/lz4kd_to_49.patch
-          patch -p1 < lz4kd_to_49.patch
+          patch -p1 < lz4kd_to_49.patch || true
 
           # Patch Simple LMK
           wget https://raw.githubusercontent.com/Lastpickle/NonGKI_Kernel_Patches/refs/heads/mi_kernel/mix2s_evox_a15/simple_lmk_to_49.patch
-          patch -p1 < simple_lmk_to_49.patch
+          patch -p1 < simple_lmk_to_49.patch || true
 
           # KPM Checker
           if [[ -d "${{ env.KERNELSU_NAME }}/kernel/kpm" ]]; then
