@@ -413,7 +413,15 @@ jobs:
           else
             echo "Your kernel not supported it."
           fi
-
+      - name: Fix cgroup patch
+        run: |
+          cd $GITHUB_WORKSPACE/device_kernel
+      
+          if [ -f kernel/cgroup/cgroup.c.rej ]; then
+              echo "Found cgroup reject"
+              cat kernel/cgroup/cgroup.c.rej
+              exit 1
+          fi
       - name: Fixed Kernel Patch
         if: env.SUSFS_ENABLE == 'true' && env.SUSFS_FIXED == 'true'
         run: |
