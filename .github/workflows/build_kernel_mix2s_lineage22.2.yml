@@ -242,7 +242,17 @@ jobs:
           git clone https://github.com/Lastpickle/NonGKI_Kernel_Patches.git -b mi_kernel NonGKI_Kernel_Patches --depth=1
           cp susfs4ksu/kernel_patches/fs/* fs/
           cp susfs4ksu/kernel_patches/include/linux/* include/linux/
-
+          
+      - name: Fix cgroup patch
+              run: |
+                cd $GITHUB_WORKSPACE/device_kernel
+            
+                if [ -f kernel/cgroup/cgroup.c.rej ]; then
+                    echo "Found cgroup reject"
+                    cat kernel/cgroup/cgroup.c.rej
+                    exit 1
+                fi
+                
       - name: Patch Kernel for no-kprobe
         run: |
           cd $GITHUB_WORKSPACE
@@ -413,15 +423,7 @@ jobs:
           else
             echo "Your kernel not supported it."
           fi
-      - name: Fix cgroup patch
-        run: |
-          cd $GITHUB_WORKSPACE/device_kernel
       
-          if [ -f kernel/cgroup/cgroup.c.rej ]; then
-              echo "Found cgroup reject"
-              cat kernel/cgroup/cgroup.c.rej
-              exit 1
-          fi
       - name: Fixed Kernel Patch
         if: env.SUSFS_ENABLE == 'true' && env.SUSFS_FIXED == 'true'
         run: |
